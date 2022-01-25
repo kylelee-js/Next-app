@@ -1,13 +1,28 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Modal from "../components/Modal";
 import SEO from "../components/SEO";
 
 export default function Home({ results }) {
-	results.length / 6;
-
+	// Click to slide carousel left
+	let [isHover, setIsHover] = useState(false);
+	let counter = 0;
 	const onClick = (event) => {
-		let $movieContainer = event.target.parentElement.parentElement;
-		$movieContainer.animate([{ maginLeft: -250 }, { duration: 400 }]);
+		counter++;
+		if (counter * 5 >= results.length) {
+			counter = 0;
+		}
+
+		let $movieContainer = document.querySelector(".movie-container");
+		$movieContainer.style.marginLeft = `-${counter * 9}0%`;
+	};
+
+	const onMouseOver = (event) => {
+		// 시간 후에 되는게 아니라 호버링 기준으로 바꿔야한다....
+		setTimeout(() => {
+			setIsHover((prev) => !prev);
+			console.log(event.target);
+		}, 700);
 	};
 
 	return (
@@ -15,26 +30,28 @@ export default function Home({ results }) {
 			<SEO title='Home' />
 			<div className='title'>
 				<h1>Top 10 Movies</h1>
+				<span className='handlePrev' onClick={onClick}>
+					<b className='prev-icon'>Next Button</b>
+				</span>
+
+				{/* <span className='handleNext' onClick={onClick}>
+					<b className='next-icon'>N</b>
+				</span> */}
 			</div>
 
 			<div className='movie-container'>
-				<span className='handlePrev' onClick={onClick}>
-					<b className='prev-icon'>B</b>
-				</span>
 				{results?.map((movie) => (
-					<div key={movie.id} className='movie'>
+					<div key={movie.id} className='movie' onMouseOver={onMouseOver}>
 						<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-						{/* <h4>{movie.original_title}</h4> */}
+						{isHover & <Modal movie={movie} />}
 					</div>
 				))}
-				<span className='handleNext' onClick={onClick}>
-					<b className='next-icon'>N</b>
-				</span>
 			</div>
 
 			<style jsx>{`
 				.container {
 					padding-bottom: 50vh;
+					overflow: hidden; 
 				}
 				.previus {
 					padding-right: 5px;
@@ -43,14 +60,15 @@ export default function Home({ results }) {
 				.title {
 					padding: 10px;
 					margin: 10px;
+					gap: 10px;
 				}
+
+
 				.movie-container {
 					display: flex;
 					padding-top: 20px;
-					align-items: center;
-					justify-contents: center;
-					overflow: hidden; 
-					transition: transform 0.3s ease-in-out;
+					padding-left: 10px;
+					transition: all 0.3s ease-in-out;
 				}
 
 				.movie {
@@ -77,14 +95,18 @@ export default function Home({ results }) {
 				.handleNext {
 					width: 4%;
 					background-color: white;
-					position: fixed;
-    			bottom: 0px;
-    			right: 0px; 
+					color: black;
 				}
 				.handlePrev {
-					position: fixed;
 					width: 4%;
 					background-color: white;
+					color: black;
+					border-radius: 5px;
+					padding: 5px;
+					box-shadow: 3px 3px 8px #888888;
+				}
+				.hidden {
+					display: none;
 				}
 			`}</style>
 		</div>
