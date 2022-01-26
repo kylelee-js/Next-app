@@ -5,7 +5,7 @@ import SEO from "../components/SEO";
 
 export default function Home({ results }) {
 	// Click to slide carousel left
-	let [isHover, setIsHover] = useState(false);
+
 	let counter = 0;
 	const onClick = (event) => {
 		counter++;
@@ -15,14 +15,6 @@ export default function Home({ results }) {
 
 		let $movieContainer = document.querySelector(".movie-container");
 		$movieContainer.style.marginLeft = `-${counter * 9}0%`;
-	};
-
-	const onMouseOver = (event) => {
-		// 시간 후에 되는게 아니라 호버링 기준으로 바꿔야한다....
-		setTimeout(() => {
-			setIsHover((prev) => !prev);
-			console.log(event.target);
-		}, 700);
 	};
 
 	return (
@@ -41,17 +33,14 @@ export default function Home({ results }) {
 
 			<div className='movie-container'>
 				{results?.map((movie) => (
-					<div key={movie.id} className='movie' onMouseOver={onMouseOver}>
-						<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-						{isHover & <Modal movie={movie} />}
-					</div>
+					<Modal key={movie.id} movie={movie} />
 				))}
 			</div>
 
 			<style jsx>{`
 				.container {
 					padding-bottom: 50vh;
-					overflow: hidden; 
+					overflow: hidden;
 				}
 				.previus {
 					padding-right: 5px;
@@ -62,36 +51,12 @@ export default function Home({ results }) {
 					margin: 10px;
 					gap: 10px;
 				}
-
-
 				.movie-container {
 					display: flex;
 					padding-top: 20px;
 					padding-left: 10px;
 					transition: all 0.3s ease-in-out;
 				}
-
-				.movie {
-					flex-grow: 1;
-					max-width: 20vw;
-					padding: 10px;
-					gap: 20px;
-				}
-
-				.movie:hover img {
-					transform: scale(1.1) translateY(-10px);
-				}
-				.movie img {
-					max-width: 15vw;
-					padding 20px;
-					border-radius: 12px;
-					transition: transform 0.2s ease-in-out;
-				}
-				.movie h4 {
-					font-size: 20%;
-					text-align: center;
-				}
-
 				.handleNext {
 					width: 4%;
 					background-color: white;

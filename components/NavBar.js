@@ -11,7 +11,7 @@ export default function NavBar() {
 				<Link href='/home'>
 					<a className={router.pathname == "/home" ? "active" : ""}>Home</a>
 				</Link>
-				<Link href='/'>
+				<Link href='/about'>
 					<a className={router.pathname == "/about" ? "active" : ""}>About</a>
 				</Link>
 				<Link href='/'>
