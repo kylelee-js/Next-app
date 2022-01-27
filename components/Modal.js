@@ -19,17 +19,14 @@ export default function Modal({ movie }) {
 		// }, 200);
 	};
 	return (
-		<div className='container'>
-			<div
-				key={movie.id}
-				className='movie'
-				onMouseOver={onMouseOver}
-				onMouseOut={onMouseOut}>
+		<div
+			className='container'
+			onMouseOver={onMouseOver}
+			onMouseOut={onMouseOut}>
+			<div key={movie.id} className='movie'>
 				<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
 			</div>
-
 			{isHover && <Desc movie={movie} />}
-
 			<style jsx>{`
 					.movie {
 						flex-grow: 1;
@@ -39,12 +36,14 @@ export default function Modal({ movie }) {
 					}
 					.movie:hover img {
 						transform: scale(1.1) translateY(-10px);
+						border-bottom-left-radius: 0;
+						border-bottom-right-radius: 0;
 					}
 					.movie > img {
 						max-width: 15vw;
 						padding 20px;
 						border-radius: 12px;
-						transition: transform 0.2s ease-in-out;
+						transition: all 0.2s ease-in-out;
 					}
 					.hidden {
 						display: none;

@@ -19,12 +19,14 @@ export default function Desc({ movie }) {
 			</div>
 			<style jsx>{`
 				.desc-container {
+					margin: 0;
+					padding: 0;
 					height: 200px;
 					width: inherit;
 					background-color: black;
 					border: 1px;
 					border-style: solid;
-					border-radius: 10px;
+					border-radius: 0 0 10px 10px;
 				}
 			`}</style>
 		</div>
