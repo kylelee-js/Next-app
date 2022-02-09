@@ -25,17 +25,18 @@ export default function Modal({ movie }) {
 			onMouseOut={onMouseOut}>
 			<div key={movie.id} className='movie'>
 				<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+				{isHover && <Desc movie={movie} />}
 			</div>
-			{isHover && <Desc movie={movie} />}
 			<style jsx>{`
 					.movie {
+						position: relative;
 						flex-grow: 1;
 						max-width: 20vw;
 						padding: 10px;
 						gap: 20px;
 					}
 					.movie:hover img {
-						transform: scale(1.1) translateY(-10px);
+						transform: scale(1.5) translateY(-10px);
 						border-bottom-left-radius: 0;
 						border-bottom-right-radius: 0;
 					}

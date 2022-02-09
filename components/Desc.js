@@ -8,20 +8,25 @@ export default function Desc({ movie }) {
 			</Link>
 
 			<div className='btn-container'>
-				<button className='play'></button>
-				<button className='like'></button>
-				<button className='dislike'></button>
-				<button className='add'></button>
+				<button className='play'>재생</button>
+				<button className='like'>좋아요</button>
+				<button className='dislike'>싫어요</button>
+				<button className='add'>추가</button>
 			</div>
-			<div className='description'></div>
+			<div className='description'>영화 설명</div>
 			<div className='genre'>
+				장르 설명
 				<span>{movie.id}</span>
 			</div>
 			<style jsx>{`
 				.desc-container {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
 					margin: 0;
 					padding: 0;
-					height: 200px;
+					height: 150px;
 					width: inherit;
 					background-color: black;
 					border: 1px;

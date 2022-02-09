@@ -54,7 +54,7 @@ export default function Home({ results }) {
 				.movie-container {
 					display: flex;
 					padding-top: 20px;
-					padding-left: 10px;
+					padding-left: 20px;
 					transition: all 0.3s ease-in-out;
 				}
 				.handleNext {
