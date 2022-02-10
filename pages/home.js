@@ -5,16 +5,24 @@ import SEO from "../components/SEO";
 
 export default function Home({ results }) {
 	// Click to slide carousel left
+	const [movies, setMovies] = useState([]);
+
+	useEffect(() => {
+		setMovies(results.slice(0, 10));
+	}, []);
 
 	let counter = 0;
 	const onClick = (event) => {
 		counter++;
-		if (counter * 5 >= results.length) {
+		if (counter * 5 >= movies.length) {
 			counter = 0;
 		}
 
+		// setMovies(results.slice(counter * 5, counter * 5 + 5));
 		let $movieContainer = document.querySelector(".movie-container");
-		$movieContainer.style.marginLeft = `-${counter * 9}0%`;
+
+		// 새로운 방식으로 업데이트!
+		$movieContainer.style.marginLeft = `-${counter * 10}0%`;
 	};
 
 	return (
@@ -25,14 +33,10 @@ export default function Home({ results }) {
 				<span className='handlePrev' onClick={onClick}>
 					<b className='prev-icon'>Next Button</b>
 				</span>
-
-				{/* <span className='handleNext' onClick={onClick}>
-					<b className='next-icon'>N</b>
-				</span> */}
 			</div>
 
 			<div className='movie-container'>
-				{results?.map((movie) => (
+				{movies?.map((movie) => (
 					<Modal key={movie.id} movie={movie} />
 				))}
 			</div>
@@ -41,27 +45,31 @@ export default function Home({ results }) {
 				.container {
 					padding-bottom: 50vh;
 					overflow: hidden;
-				}
-				.previus {
-					padding-right: 5px;
-					padding-left: 5px;
+					width: 100vw;
 				}
 				.title {
 					padding: 10px;
 					margin: 10px;
 					gap: 10px;
 				}
-				.movie-container {
+
+				/* .movie-container {
+					margin: 0;
 					display: flex;
 					padding-top: 20px;
 					padding-left: 20px;
 					transition: all 0.3s ease-in-out;
+				} */
+
+				.movie-container {
+					display: grid;
+					/* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+					grid-auto-flow: column;
+					grid-template-columns: repeat(5, auto);
+					width: 100%;
+					transition: all 0.3s ease-in-out;
 				}
-				.handleNext {
-					width: 4%;
-					background-color: white;
-					color: black;
-				}
+
 				.handlePrev {
 					width: 4%;
 					background-color: white;
@@ -69,9 +77,6 @@ export default function Home({ results }) {
 					border-radius: 5px;
 					padding: 5px;
 					box-shadow: 3px 3px 8px #888888;
-				}
-				.hidden {
-					display: none;
 				}
 			`}</style>
 		</div>
