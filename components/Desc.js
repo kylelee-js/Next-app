@@ -11,6 +11,7 @@ export default function Desc({ movie }) {
 				<button className='like'>좋아요</button>
 				<button className='dislike'>싫어요</button>
 				<button className='add'>추가</button>
+				
 			</div>
 			<b>{movie.title}</b>
 
